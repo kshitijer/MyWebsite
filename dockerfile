@@ -1,5 +1,7 @@
-FROM ubuntu
-RUN apt-get update
-RUN apt-get -y install apache2
-ADD . /var/www/html
-ENTRYPOINT "apachectl" "-D" "FOREGROUND"
+FROM node:12.2.0-alpine
+WORKDIR app
+COPY . .
+RUN npm install
+RUN npm run test
+EXPOSE 8000
+CMD ["node","app.js"]
